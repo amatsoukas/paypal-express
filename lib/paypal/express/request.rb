@@ -157,6 +157,15 @@ module Paypal
         if options[:invoice_id]
           params[:INVNUM] = options[:invoice_id]
         end
+        
+        if options[:items]
+          options[:items].each_with_index do |item, index|
+            params[:"L_ITEMCATEGORY#{index}"] = 'Digital'
+            params[:"L_NAME#{index}"] = item.name
+            params[:"L_AMT#{index}"] = item.amount
+            params[:"L_QTY#{index}"] = item.quantity
+          end
+        end
 
         response = self.request :DoReferenceTransaction, params
         Response.new response
