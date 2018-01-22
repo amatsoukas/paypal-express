@@ -145,6 +145,19 @@ module Paypal
         if options[:currency_code]
           params[:CURRENCYCODE] = options[:currency_code]
         end
+
+        if options[:custom]
+          params[:CUSTOM] = options[:custom]
+        end
+
+        if options[:description]
+          params[:DESC] = options[:description]
+        end
+
+        if options[:invoice_id]
+          params[:INVNUM] = options[:invoice_id]
+        end
+
         response = self.request :DoReferenceTransaction, params
         Response.new response
       end
